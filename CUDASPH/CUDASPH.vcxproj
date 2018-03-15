@@ -42,6 +42,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ExecutablePath>E:\SourceCode\VS Workspaces\VS2015\CUDASPH\CUDASPH\bin\x64;E:\SourceCode\VS Workspaces\VS2015\CUDASPH\CUDASPH\bin;E:\SourceCode\VS Workspaces\VS2015\CUDASPH\CUDASPH\x64;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>E:\SourceCode\VS Workspaces\VS2015\CUDASPH\CUDASPH\src;E:\SourceCode\VS Workspaces\VS2015\CUDASPH\CUDASPH\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\SourceCode\VS Workspaces\VS2015\CUDASPH\CUDASPH\lib\x64;E:\SourceCode\VS Workspaces\VS2015\CUDASPH\CUDASPH\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -82,10 +87,69 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu" />
+    <CudaCompile Include="src\fluid_const.cu" />
+    <CudaCompile Include="src\fuild_system_cuda.cu" />
+    <CudaCompile Include="src\grid_cell_host.cu" />
+    <CudaCompile Include="src\grid_cell_kernel.cu" />
+    <CudaCompile Include="src\particle_attrib.cu" />
+    <CudaCompile Include="src\smooth_kernel.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\common\camera3d.cpp" />
+    <ClCompile Include="src\common\glee.c" />
+    <ClCompile Include="src\common\gl_helper.cpp" />
+    <ClCompile Include="src\common\image.cpp" />
+    <ClCompile Include="src\common\mdebug.cpp" />
+    <ClCompile Include="src\common\mtime.cpp" />
+    <ClCompile Include="src\common\pivotx.cpp" />
+    <ClCompile Include="src\common\tinystr.cpp" />
+    <ClCompile Include="src\common\tinyxml.cpp" />
+    <ClCompile Include="src\common\tinyxmlerror.cpp" />
+    <ClCompile Include="src\common\tinyxmlparser.cpp" />
+    <ClCompile Include="src\common\utilities.cpp" />
+    <ClCompile Include="src\common\vector.cpp" />
+    <ClCompile Include="src\common\xml_settings.cpp" />
+    <ClCompile Include="src\fluid_system.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\shader_creator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\common\camera3d.h" />
+    <ClInclude Include="src\common\common_defs.h" />
+    <ClInclude Include="src\common\glee.h" />
+    <ClInclude Include="src\common\glext.h" />
+    <ClInclude Include="src\common\gl_helper.h" />
+    <ClInclude Include="src\common\image.h" />
+    <ClInclude Include="src\common\matrix.h" />
+    <ClInclude Include="src\common\matrix_inline.h" />
+    <ClInclude Include="src\common\mdebug.h" />
+    <ClInclude Include="src\common\mtime.h" />
+    <ClInclude Include="src\common\pivotx.h" />
+    <ClInclude Include="src\common\string_helper.h" />
+    <ClInclude Include="src\common\tinystr.h" />
+    <ClInclude Include="src\common\tinyxml.h" />
+    <ClInclude Include="src\common\utilities.h" />
+    <ClInclude Include="src\common\vector.h" />
+    <ClInclude Include="src\common\vector_inline.h" />
+    <ClInclude Include="src\common\xml_settings.h" />
+    <ClInclude Include="src\fluid_const.cuh" />
+    <ClInclude Include="src\fluid_system.h" />
+    <ClInclude Include="src\fluid_system_cuda.cuh" />
+    <ClInclude Include="src\grid_cell_host.cuh" />
+    <ClInclude Include="src\grid_cell_kernel.cuh" />
+    <ClInclude Include="src\math_support.cuh" />
+    <ClInclude Include="src\particle_attrib.cuh" />
+    <ClInclude Include="src\shader_creator.h" />
+    <ClInclude Include="src\smooth_kernel.cuh" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\fragment.glsl" />
+    <None Include="src\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
