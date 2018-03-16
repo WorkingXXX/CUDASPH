@@ -251,30 +251,22 @@ void CreateFluid(
 void PreComputeKernels(FluidConst & fldCst)
 {
 	float sr = fldCst.sr;
+	float sr_3 = pow(sr, 3);
+	float sr_6 = sr_3 * sr_3;
+	float sr_9 = sr_6 * sr_3;
 
-	fldCst.poly6Kernel = 315.0 / (64.0 * MY_PI * pow(sr, 9));
-	fldCst.spikyKernel = -45.0 / (MY_PI * pow(sr, 6));
+	fldCst.poly6Kernel = 315.0 / (64.0 * MY_PI * sr_9);
+	fldCst.spikyKernel = -45.0 / (MY_PI * sr_6);
 	fldCst.laplaceKernel = -fldCst.spikyKernel;
-	fldCst.lutKernel = LUT_CONST / pow(sr, 3);
-
+	fldCst.lutKernel = LUT_CONST / sr_3;
 	fldCst.densContrib = M4Kernel(fldCst.lutKernel, 0.0, sr);
-
-	/*for (size_t i = 0; i < LUT_SIZE; ++i)
-	{
-	float dist = sr * i / LUT_SIZE;
-	gHostM4Lut[i] = M4Kernel(fldCst.lutKernel, dist, sr);
-	}*/
+	fldCst.cubeKernel = 8.0 / (MY_PI * sr_3);
+	fldCst.cubeGradKernel = 48.0 / (MY_PI * sr_3);
 }
 
 void PreComputeSpacing(FluidConst & fldCst)
 {
-	//fldCst.simuScale = 1.0;
-	//fldCst.spaceReal = 1.0;
-	//fldCst.ptcMass = fldCst.restDens * pow(fldCst.spaceReal, 3.0);
-	//// 平滑核半径为粒子间初始距离的两倍，为了减少误差而设置成2.002倍
-	//fldCst.sr = fldCst.spaceReal * 2.0;
-	//fldCst.cellSize = fldCst.sr;
-	//fldCst.ptcRadius = fldCst.spaceReal * 0.5;
+	
 }
 
 void PreComputeGasConstantAndTimeStep(FluidConst & fldCst)

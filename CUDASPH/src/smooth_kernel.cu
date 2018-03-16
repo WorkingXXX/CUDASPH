@@ -52,3 +52,41 @@ __device__ float LaplaceKernel2ndDervt(float kernel, float dist, float sr)
 {
 	return kernel * (sr - dist);
 }
+
+__device__ float CubeSpline(float kernel, float dist, float sr)
+{
+	float result = 0.0;
+	float q = dist / sr;
+
+	if (0.0 <= q && q <= 0.5)
+	{
+		result = kernel * (6.0 * q * q * q - 6.0 * q * q + 1.0);
+	}
+	else if (0.5 < q && q <= 1.0)
+	{
+		q = 1.0 - q;
+		result = kernel * 2.0 * q * q * q;
+	}
+
+	return result;
+}
+
+__device__ float3 CubeSplineGrad(float kernel, float3 distV, float sr)
+{
+	float3 result = make_float3(0.0, 0.0, 0.0);
+	float dist = Distance(distV);
+	float q = dist / sr;
+	float3 qGrad = distV / (dist * sr);
+
+	if (0.0 <= q && q <= 0.5)
+	{
+		result = qGrad * kernel * q * (3.0 * q - 2.0);
+	}
+	else if (0.5 < q && q <= 1.0)
+	{
+		q = 1.0 - q;
+		result = -qGrad * kernel * q * q;
+	}
+
+	return result;
+}

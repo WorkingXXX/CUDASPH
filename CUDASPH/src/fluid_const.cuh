@@ -28,6 +28,8 @@ struct FluidConst
 	float spikyKernel;
 	float laplaceKernel;
 	float lutKernel;
+	float cubeKernel;
+	float cubeGradKernel;
 	float densContrib;
 	float cellDens;
 	float cellSize;

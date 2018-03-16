@@ -24,4 +24,8 @@ __device__ float3 SpikyKernel1stDervt(float kernel, float3 distV, float sr);
 
 __device__ float LaplaceKernel2ndDervt(float kernel, float dist, float sr);
 
+__device__ float CubeSpline(float kernel, float dist, float sr);
+
+__device__ float3 CubeSplineGrad(float kernel, float3 distV, float sr);
+
 #endif
